@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cat & Dog Picture Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        img { max-width: 400px; margin: 20px auto; display: block; border-radius: 10px; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+        nav { background-color: #f0f0f0; padding: 10px; margin-bottom: 20px; }
+        nav a { margin: 0 15px; text-decoration: none; color: #333; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="Cat_and_dog_image_generator_index.html">Home</a>
+        <a href="subscription.html">Subscription</a>
+    </nav>
+    <h1>Cat & Dog Picture Generator</h1>
+    <div>
+        <button onclick="getCat()">Show Cat</button>
+        <button onclick="getDog()">Show Dog</button>
+    </div>
+    <h2>More Animals</h2>
+    <div>
+        <button onclick="getFox()">Show Fox</button>
+        <button onclick="getBird()">Show Bird</button>
+        <button onclick="getBear()">Show Bear</button>
+        <button onclick="getDuck()">Show Duck</button>
+        <button onclick="getAxolotl()">Show Axolotl</button>
+    </div>
+    <img id="animalImg" src="" alt="Animal will appear here" />
+    <p id="fact"></p>
+    <script>
+        async function getCat() {
+            const res = await fetch('https://api.thecatapi.com/v1/images/search');
+            const data = await res.json();
+            document.getElementById('animalImg').src = data[0].url;
+            document.getElementById('animalImg').alt = "Random Cat";
+            const factRes = await fetch('https://catfact.ninja/fact');
+            const factData = await factRes.json();
+            document.getElementById('fact').innerText = factData.fact;
+        }
+        async function getDog() {
+            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const data = await res.json();
+            document.getElementById('animalImg').src = data.message;
+            document.getElementById('animalImg').alt = "Random Dog";
+            const factRes = await fetch('https://dog-api.kinduff.com/api/facts');
+            const factData = await factRes.json();
+            document.getElementById('fact').innerText = factData.facts[0];
+        }
+        async function getFox() {
+            const res = await fetch('https://randomfox.ca/floof/');
+            const data = await res.json();
+            document.getElementById('animalImg').src = data.image;
+            document.getElementById('animalImg').alt = "Random Fox";
+            document.getElementById('fact').innerText = "Foxes are clever and adaptable animals.";
+        }
+        async function getBird() {
+            const res = await fetch('https://shibe.online/api/birds?count=1&urls=true&httpsUrls=true');
+            const data = await res.json();
+            document.getElementById('animalImg').src = data[0];
+            document.getElementById('animalImg').alt = "Random Bird";
+            document.getElementById('fact').innerText = "Birds have feathers and most can fly.";
+        }
+        async function getBear() {
+            document.getElementById('animalImg').src = 'https://placebear.com/400/300';
+            document.getElementById('animalImg').alt = "Random Bear";
+            document.getElementById('fact').innerText = "Bears are strong and can hibernate.";
+        }
+        async function getDuck() {
+            const res = await fetch('https://random-d.uk/api/random');
+            const data = await res.json();
+            document.getElementById('animalImg').src = data.url;
+            document.getElementById('animalImg').alt = "Random Duck";
+            document.getElementById('fact').innerText = "Ducks quack and love water.";
+        }
+        async function getAxolotl() {
+            const res = await fetch('https://axoltlapi.herokuapp.com/');
+            const data = await res.json();
+            document.getElementById('animalImg').src = data.url;
+            document.getElementById('animalImg').alt = "Random Axolotl";
+            document.getElementById('fact').innerText = data.facts[0];
+        }
+    </script>
+</body>
+</html>
